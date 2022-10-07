@@ -1,0 +1,11 @@
+parameters:
+    yabx.ts.types_class: 'App\Types'
+    yabx.ts.cache_dir: '%kernel.cache_dir%'
+    yabx.ts.controllers_dir: '%kernel.project_dir%/src/Controller'
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+    Yabx\TypeScriptBundle\Command\DumpTypeScriptCommand: ~
+
