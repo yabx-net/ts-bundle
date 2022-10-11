@@ -1,6 +1,6 @@
 {
 	"name": "yabx/ts-bundle",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"type": "symfony-bundle",
 	"minimum-stability": "stable",
 	"description": "TypeScript mapper for Symfony 6",
