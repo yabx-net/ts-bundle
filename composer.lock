@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d5654ef7a4e1bd40b5f460d0138f18e8",
+    "content-hash": "203f5108616bb17b7a97720853fe6c77",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -2672,17 +2672,17 @@
             "time": "2022-07-04T16:01:56+00:00"
         },
         {
-            "name": "yabx-net/rest-bundle",
-            "version": "0.0.1",
+            "name": "yabx/rest-bundle",
+            "version": "0.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yabx-net/rest-bundle.git",
-                "reference": "7f85f86f4ff65938ab9b4d6d33066b826d067db6"
+                "reference": "8aa169e4b9014b971c3c9ecb6b074a11abfe7d5d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yabx-net/rest-bundle/zipball/7f85f86f4ff65938ab9b4d6d33066b826d067db6",
-                "reference": "7f85f86f4ff65938ab9b4d6d33066b826d067db6",
+                "url": "https://api.github.com/repos/yabx-net/rest-bundle/zipball/8aa169e4b9014b971c3c9ecb6b074a11abfe7d5d",
+                "reference": "8aa169e4b9014b971c3c9ecb6b074a11abfe7d5d",
                 "shasum": ""
             },
             "require": {
@@ -2710,9 +2710,9 @@
             "description": "REST for Symfony 6",
             "support": {
                 "issues": "https://github.com/yabx-net/rest-bundle/issues",
-                "source": "https://github.com/yabx-net/rest-bundle/tree/0.0.1"
+                "source": "https://github.com/yabx-net/rest-bundle/tree/0.1.0"
             },
-            "time": "2022-10-06T14:31:52+00:00"
+            "time": "2022-10-11T08:56:39+00:00"
         }
     ],
     "packages-dev": [],
@@ -2725,5 +2725,5 @@
         "php": "^8.1"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.2.0"
+    "plugin-api-version": "2.3.0"
 }

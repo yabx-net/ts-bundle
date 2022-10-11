@@ -9,6 +9,7 @@ use ReflectionProperty;
 use ReflectionNamedType;
 use ReflectionUnionType;
 use Yabx\RestBundle\Validator\EnumChoice;
+use Yabx\TypeScriptBundle\Attributes\Hidden;
 use Yabx\TypeScriptBundle\Attributes\Definition;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints\Choice;
@@ -191,8 +192,9 @@ class TypeScript {
         //$rc = $r->getDeclaringClass();
 
         $groups = $this->classResolver->getAttribute($r, Groups::class);
+        $hidden = $this->classResolver->getAttribute($r, Hidden::class);
 
-        if(!$groups) return null;
+        if($hidden) return null;
 
         $notBlank = $this->classResolver->getAttribute($r, NotBlank::class);
         $definition = $this->classResolver->getAttribute($r, Definition::class);
@@ -222,7 +224,7 @@ class TypeScript {
 
         if(isset($defaults[$name])) $q = '?';
         if(!isset($defaults[$name]) && !$notBlank) $q = '?';
-        if(in_array('main', $groups->getGroups())) $q = '';
+        if(in_array('main', $groups?->getGroups() ?? [])) $q = '';
 
         if($choice && !$definition) $typeName = "'" . implode("' | '", $choice->choices) . "'" . ($nullable ? ' | null' : '');
         if($enumChoice && !$definition) {
