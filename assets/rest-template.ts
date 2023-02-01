@@ -34,27 +34,27 @@ class RestAPI {
     return this.statusCode;
   };
 
-  get = (endpoint: string, payload?: unknown): Promise<any> => {
-    return this.request('GET', endpoint, payload);
+  get = (endpoint: string, payload?: object | FormData, fields?: string[]): Promise<any> => {
+    return this.request('GET', endpoint, payload, fields);
   };
 
-  post = (endpoint: string, payload?: unknown): Promise<any> => {
-    return this.request('POST', endpoint, payload);
+  post = (endpoint: string, payload?: object | FormData, fields?: string[]): Promise<any> => {
+    return this.request('POST', endpoint, payload, fields);
   };
 
-  put = (endpoint: string, payload?: unknown): Promise<any> => {
-    return this.request('PUT', endpoint, payload);
+  put = (endpoint: string, payload?: object | FormData, fields?: string[]): Promise<any> => {
+    return this.request('PUT', endpoint, payload, fields);
   };
 
-  patch = (endpoint: string, payload?: unknown): Promise<any> => {
-    return this.request('PATCH', endpoint, payload);
+  patch = (endpoint: string, payload?: object | FormData, fields?: string[]): Promise<any> => {
+    return this.request('PATCH', endpoint, payload, fields);
   };
 
-  delete = (endpoint: string, payload?: unknown): Promise<any> => {
-    return this.request('DELETE', endpoint, payload);
+  delete = (endpoint: string, payload?: object | FormData, fields?: string[]): Promise<any> => {
+    return this.request('DELETE', endpoint, payload, fields);
   };
 
-  private request = (method: THttpMethod, endpoint: string, payload: unknown = {}): Promise<unknown> => {
+  private request = (method: THttpMethod, endpoint: string, payload: object | FormData = {}, fields: string[] = []): Promise<unknown> => {
     // @ts-ignore
     return new Promise((resolve, reject) => {
       const processReject = (error: string, code: number) => {
@@ -71,9 +71,12 @@ class RestAPI {
       };
 
       if (payload instanceof FormData) {
+        payload.append('__fields', fields.join(','))
         options.body = payload;
       } else {
         options.headers['content-type'] = 'application/json';
+        // @ts-ignore
+        payload['__fields'] = fields;
         if (payload && method !== 'GET') options.body = JSON.stringify(payload);
       }
 

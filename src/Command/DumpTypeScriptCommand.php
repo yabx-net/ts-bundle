@@ -21,9 +21,11 @@ class DumpTypeScriptCommand extends Command {
 
     protected ParameterBagInterface $params;
     private string $projectDir;
+    private string $cacheDir;
 
     public function __construct(KernelInterface $kernel, ParameterBagInterface $params) {
         $this->projectDir = $kernel->getProjectDir();
+        $this->cacheDir = $kernel->getCacheDir();
         $this->params = $params;
         parent::__construct();
     }
@@ -46,6 +48,8 @@ class DumpTypeScriptCommand extends Command {
             $io->error('There is no types_class configured');
             return Command::FAILURE;
         }
+
+        $ts->registerGroups();
 
         $out = file_get_contents(__DIR__ . '/../../assets/rest-template.ts');
         $out .= $ts->getTypeScriptCode();
@@ -90,9 +94,11 @@ class DumpTypeScriptCommand extends Command {
                     }
                 }
 
+                $args[] = 'fields?: Array<EFieldGroup | string>';
+
                 $out .= "\n\t/** " . ($info->getTitle() ?: $rm->getName()) . " */\n\t" . $rm->getName() . " = (" . implode(', ', $args) . "): Promise<" . ($info->getResponse() ? $ts->getSlug($info->getResponse()) : 'unknown') . "> => ";
                 $path = str_replace('{', '${', ($classRoute ?  $classRoute->getPath() : '') .  $route->getPath());
-                $out .= "this.api." . strtolower($route->getMethods() ? $route->getMethods()[0] : 'post') . "(`" . $path . "`" . ($request ? ", request" : '') . ");\n";
+                $out .= "this.api." . strtolower($route->getMethods() ? $route->getMethods()[0] : 'post') . "(`" . $path . "`" . ($request ? ", request" : '') . (', fields') . ");\n";
 
             }
 
@@ -106,7 +112,13 @@ class DumpTypeScriptCommand extends Command {
             $out = call_user_func([$typesClass, 'codePostProcessor'], $out);
         }
 
-        file_put_contents($input->getArgument('path'), $out);
+        $tmp = $this->cacheDir . '/rest.ts';
+        file_put_contents($tmp, $out);
+
+        exec('prettier -w ' . $tmp);
+
+        rename($tmp, $input->getArgument('path'));
+
 
         $io->success($this->projectDir);
         return Command::SUCCESS;

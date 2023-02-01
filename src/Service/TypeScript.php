@@ -277,6 +277,16 @@ class TypeScript {
 		return trim(implode(PHP_EOL . PHP_EOL, array_values($this->definitions)) . PHP_EOL . PHP_EOL);
 	}
 
+    public function registerGroups(): void {
+        $groups = array_values(array_unique($this->groups));
+        $groups = array_filter($groups, fn(string $group) => !str_starts_with($group, 'ROLE_') && $group !== 'main');
+        $this->registerArrayEnum('EFieldGroup', array_combine(array_map(function(string $group) {
+            $group = preg_replace('/[^a-z0-9]/i', ' ', $group);
+            $group = mb_convert_case($group, MB_CASE_TITLE);
+            return preg_replace('/\s+/', '', $group);
+        } , $groups), $groups));
+    }
+
 	public function getGroups(): array {
 		return $this->groups;
 	}

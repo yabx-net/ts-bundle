@@ -1,6 +1,6 @@
 {
 	"name": "yabx/ts-bundle",
-	"version": "0.1.1",
+	"version": "0.2.0",
 	"type": "symfony-bundle",
 	"minimum-stability": "stable",
 	"description": "TypeScript mapper for Symfony 6",
@@ -11,7 +11,7 @@
 		"symfony/serializer": "^6.0",
 		"symfony/http-kernel": "^6.0",
 		"symfony/framework-bundle": "^6.0",
-		"yabx/rest-bundle": "^0.1"
+		"yabx/rest-bundle": "^0.2"
 	},
 	"config": {
 		"sort-packages": true
@@ -26,5 +26,11 @@
 			"allow-contrib": false,
 			"require": "6.*.*"
 		}
-	}
+	},
+	"-repositories": [
+		{
+			"type": "path",
+			"url": "../rest-bundle"
+		}
+	]
 }
