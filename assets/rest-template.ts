@@ -71,12 +71,12 @@ class RestAPI {
       };
 
       if (payload instanceof FormData) {
-        payload.append('__fields', fields.join(','))
+        payload.append('fields', fields.join(','))
         options.body = payload;
       } else {
         options.headers['content-type'] = 'application/json';
         // @ts-ignore
-        payload['__fields'] = fields;
+        payload['fields'] = fields;
         if (payload && method !== 'GET') options.body = JSON.stringify(payload);
       }
 

@@ -94,11 +94,11 @@ class DumpTypeScriptCommand extends Command {
                     }
                 }
 
-                $args[] = 'fields?: Array<EFieldGroup | string>';
+                $args[] = 'fields?: EFieldGroup[]';
 
                 $out .= "\n\t/** " . ($info->getTitle() ?: $rm->getName()) . " */\n\t" . $rm->getName() . " = (" . implode(', ', $args) . "): Promise<" . ($info->getResponse() ? $ts->getSlug($info->getResponse()) : 'unknown') . "> => ";
                 $path = str_replace('{', '${', ($classRoute ?  $classRoute->getPath() : '') .  $route->getPath());
-                $out .= "this.api." . strtolower($route->getMethods() ? $route->getMethods()[0] : 'post') . "(`" . $path . "`" . ($request ? ", request" : '') . (', fields') . ");\n";
+                $out .= "this.api." . strtolower($route->getMethods() ? $route->getMethods()[0] : 'post') . "(`" . $path . "`" . ($request ? ", request" : ', {}') . (', fields') . ");\n";
 
             }
 
