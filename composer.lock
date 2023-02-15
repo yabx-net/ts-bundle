@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bddb6cb8f1e09a27ba5f957dcd81853c",
+    "content-hash": "cb0fac33cb3b5035c8cb224db7264ba2",
     "packages": [
         {
             "name": "psr/cache",
@@ -2453,16 +2453,16 @@
         },
         {
             "name": "yabx/rest-bundle",
-            "version": "0.2.1",
+            "version": "0.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yabx-net/rest-bundle.git",
-                "reference": "8063eecfebcd08ef8af5af414201b5873d1b0b30"
+                "reference": "adc9f827263e63fa6ae80d23863d4ef0f8836ef4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yabx-net/rest-bundle/zipball/8063eecfebcd08ef8af5af414201b5873d1b0b30",
-                "reference": "8063eecfebcd08ef8af5af414201b5873d1b0b30",
+                "url": "https://api.github.com/repos/yabx-net/rest-bundle/zipball/adc9f827263e63fa6ae80d23863d4ef0f8836ef4",
+                "reference": "adc9f827263e63fa6ae80d23863d4ef0f8836ef4",
                 "shasum": ""
             },
             "require": {
@@ -2491,9 +2491,9 @@
             "description": "REST for Symfony 6",
             "support": {
                 "issues": "https://github.com/yabx-net/rest-bundle/issues",
-                "source": "https://github.com/yabx-net/rest-bundle/tree/v0.2.1"
+                "source": "https://github.com/yabx-net/rest-bundle/tree/v0.2.2"
             },
-            "time": "2023-02-01T09:47:22+00:00"
+            "time": "2023-02-01T11:16:53+00:00"
         }
     ],
     "packages-dev": [],

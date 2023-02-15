@@ -1,4 +1,5 @@
-type THttpMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
+export type THttpMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
+export type THeaders = Record<string, string>;
 
 class RestAPI {
   private readonly url: string;
@@ -6,6 +7,7 @@ class RestAPI {
   private statusCode: number = 0;
   private instances: Record<string, object> = {};
   private authErrorHandler?: () => void;
+  private headersHandler?: (headers: THeaders) => void;
   public debug: boolean = false;
 
   constructor(url: string, debug: boolean) {
@@ -19,6 +21,10 @@ class RestAPI {
 
   setAuthErrorHandler = (handler?: () => void) => {
     this.authErrorHandler = handler;
+  }
+
+  setHeadersHandler = (handler?: (headers: THeaders) => void) => {
+    this.headersHandler = handler;
   }
 
   setToken = (token: string | null): this => {
@@ -91,6 +97,10 @@ class RestAPI {
       }
 
       if (this.debug) console.log('Request', method, endpoint.split('?')[0], JSON.parse(JSON.stringify(payload)));
+
+      if(this.headersHandler) {
+        this.headersHandler(options.headers);
+      }
 
       fetch(this.url + endpoint, options)
       .then((response) => {
