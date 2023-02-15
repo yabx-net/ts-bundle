@@ -69,7 +69,7 @@ class RestAPI {
         else reject(error);
       };
 
-      const options: { method: string; headers: Record<string, string>; body?: FormData | string } = {
+      const options: { method: string; headers: THeaders; body?: FormData | string } = {
         method: method.toUpperCase(),
         headers: {
           accept: 'application/json',
