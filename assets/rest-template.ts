@@ -1,5 +1,19 @@
 export type THttpMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
+
 export type THeaders = Record<string, string>;
+
+export type TValidationError = {
+  key: string;
+  name: string;
+  error: string;
+}
+
+export type TResponse = {
+  result?: any
+  error?: string;
+  code?: number;
+  validation?: TValidationError;
+}
 
 class RestAPI {
   private readonly url: string;
@@ -8,6 +22,7 @@ class RestAPI {
   private instances: Record<string, object> = {};
   private authErrorHandler?: () => void;
   private headersHandler?: (headers: THeaders) => void;
+  public validation?: TValidationError;
   public debug: boolean = false;
 
   constructor(url: string, debug: boolean) {
@@ -40,31 +55,32 @@ class RestAPI {
     return this.statusCode;
   };
 
-  get = (endpoint: string, payload?: object | FormData, fields?: string[]): Promise<any> => {
+  get = <T>(endpoint: string, payload?: object | FormData, fields?: string[]): Promise<T> => {
     return this.request('GET', endpoint, payload, fields);
   };
 
-  post = (endpoint: string, payload?: object | FormData, fields?: string[]): Promise<any> => {
+  post = <T>(endpoint: string, payload?: object | FormData, fields?: string[]): Promise<T> => {
     return this.request('POST', endpoint, payload, fields);
   };
 
-  put = (endpoint: string, payload?: object | FormData, fields?: string[]): Promise<any> => {
+  put = <T>(endpoint: string, payload?: object | FormData, fields?: string[]): Promise<T> => {
     return this.request('PUT', endpoint, payload, fields);
   };
 
-  patch = (endpoint: string, payload?: object | FormData, fields?: string[]): Promise<any> => {
+  patch = <T>(endpoint: string, payload?: object | FormData, fields?: string[]): Promise<T> => {
     return this.request('PATCH', endpoint, payload, fields);
   };
 
-  delete = (endpoint: string, payload?: object | FormData, fields?: string[]): Promise<any> => {
+  delete = <T>(endpoint: string, payload?: object | FormData, fields?: string[]): Promise<T> => {
     return this.request('DELETE', endpoint, payload, fields);
   };
 
-  private request = (method: THttpMethod, endpoint: string, payload: object | FormData = {}, fields: string[] = []): Promise<unknown> => {
+  private request = <T>(method: THttpMethod, endpoint: string, payload: object | FormData = {}, fields: string[] = []): Promise<T> => {
     // @ts-ignore
     return new Promise((resolve, reject) => {
-      const processReject = (error: string, code: number) => {
-        if (this.debug) console.error('Error', error);
+      const processReject = (error: string, code: number, validation?: TValidationError) => {
+        this.validation = validation;
+        if (this.debug) console.error('Error', error, validation);
         if (code === 401 && this.authErrorHandler) this.authErrorHandler();
         else reject(error);
       };
@@ -91,6 +107,7 @@ class RestAPI {
       }
 
       this.statusCode = 0;
+      this.validation = undefined;
 
       if (payload && method === 'GET') {
         endpoint += '?__payload=' + encodeURIComponent(JSON.stringify(payload));
@@ -107,8 +124,8 @@ class RestAPI {
         this.statusCode = response.status;
         response
         .json()
-        .then((data) => {
-          if (data.error) processReject(data.error, response.status);
+        .then((data: TResponse) => {
+          if (data.error) processReject(data.error, response.status, data.validation);
           else {
             if (this.debug) console.info('Result', data.result);
             resolve(data.result);

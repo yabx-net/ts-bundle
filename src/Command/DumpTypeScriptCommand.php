@@ -69,7 +69,7 @@ class DumpTypeScriptCommand extends Command {
 
             $out .= "class {$alias} {\n\tprivate api: RestAPI;\n\tconstructor(api: RestAPI) {\n\t\tthis.api = api;\n\t}\n";
 
-            $api .= "\n\t/** Get {$alias} API */\n\tget {$alias}(): {$alias} {\n\treturn (this.instances['{$alias}'] as {$alias}) ?? (this.instances['{$alias}'] = new {$alias}(this));\n\t}\n";
+            $api .= "\n\tget {$alias}(): {$alias} {\n\treturn (this.instances['{$alias}'] as {$alias}) ?? (this.instances['{$alias}'] = new {$alias}(this));\n\t}\n";
 
             foreach($rc->getMethods() as $rm) {
 
@@ -96,7 +96,7 @@ class DumpTypeScriptCommand extends Command {
 
                 $args[] = 'fields?: EFieldGroup[]';
 
-                $out .= "\n\t/** " . ($info->getTitle() ?: $rm->getName()) . " */\n\t" . $rm->getName() . " = (" . implode(', ', $args) . "): Promise<" . ($info->getResponse() ? $ts->getSlug($info->getResponse()) : 'unknown') . "> => ";
+                $out .= "\n\t" . $rm->getName() . " = (" . implode(', ', $args) . "): Promise<" . ($info->getResponse() ? $ts->getSlug($info->getResponse()) : 'unknown') . "> => ";
                 $path = str_replace('{', '${', ($classRoute ?  $classRoute->getPath() : '') .  $route->getPath());
                 $out .= "this.api." . strtolower($route->getMethods() ? $route->getMethods()[0] : 'post') . "(`" . $path . "`" . ($request ? ", request" : ', {}') . (', fields') . ");\n";
 
