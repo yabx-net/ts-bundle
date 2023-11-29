@@ -11,7 +11,7 @@ use ReflectionUnionType;
 use Yabx\RestBundle\Validator\EnumChoice;
 use Yabx\TypeScriptBundle\Attributes\Hidden;
 use Yabx\TypeScriptBundle\Attributes\Definition;
-use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints\Choice;
 use Symfony\Component\Validator\Constraints\NotBlank;
 

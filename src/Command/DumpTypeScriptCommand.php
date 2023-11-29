@@ -5,7 +5,7 @@ namespace Yabx\TypeScriptBundle\Command;
 use Yabx\TypeScriptBundle\Attributes\Method;
 use Yabx\TypeScriptBundle\Service\TypeScript;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Yabx\TypeScriptBundle\Service\ClassResolver;
 use Yabx\TypeScriptBundle\Attributes\Controller;
 use Symfony\Component\Console\Style\SymfonyStyle;
