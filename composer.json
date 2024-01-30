@@ -1,7 +1,7 @@
 {
 	"name": "yabx/ts-bundle",
 	"type": "symfony-bundle",
-	"minimum-stability": "RC",
+	"minimum-stability": "stable",
 	"description": "TypeScript mapper for Symfony 6.4",
 	"license": "MIT",
 	"require": {
