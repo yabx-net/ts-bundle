@@ -2,15 +2,15 @@
 	"name": "yabx/ts-bundle",
 	"type": "symfony-bundle",
 	"minimum-stability": "stable",
-	"description": "TypeScript mapper for Symfony 6.4",
+	"description": "TypeScript mapper for Symfony 7.0",
 	"license": "MIT",
 	"require": {
 		"php": "^8.3",
-		"symfony/console": "^6.4",
-		"symfony/serializer": "^6.4",
-		"symfony/http-kernel": "^6.4",
-		"symfony/framework-bundle": "^6.4",
-		"yabx/rest-bundle": "^0.4.1"
+		"symfony/console": "^7.0|^6.4",
+		"symfony/serializer": "^7.0|^6.4",
+		"symfony/http-kernel": "^7.0|^6.4",
+		"symfony/framework-bundle": "^7.0|^6.4",
+		"yabx/rest-bundle": "^0.5"
 	},
 	"config": {
 		"sort-packages": true
@@ -23,7 +23,7 @@
 	"extra": {
 		"symfony": {
 			"allow-contrib": false,
-			"require": "6.*.*"
+			"require": "7.*.*|6.4.*"
 		}
 	}
 }
