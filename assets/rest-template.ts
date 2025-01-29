@@ -110,7 +110,8 @@ class RestAPI {
       this.validation = undefined;
 
       if (payload && method === 'GET') {
-        endpoint += '?__payload=' + encodeURIComponent(JSON.stringify(payload));
+        const json = JSON.stringify(payload);
+        if(json !== '{}') endpoint += '?__payload=' + encodeURIComponent(json);
       }
 
       if (this.debug) console.log('Request', method, endpoint.split('?')[0], JSON.parse(JSON.stringify(payload)));
